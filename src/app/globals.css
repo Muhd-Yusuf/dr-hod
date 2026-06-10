@@ -156,3 +156,50 @@ body::before {
     scroll-behavior: auto !important;
   }
 }
+
+/* ---- Animated imagery keyframes ---- */
+@keyframes ken-burns {
+  0% {
+    transform: scale(1.05) translate(0, 0);
+  }
+  50% {
+    transform: scale(1.18) translate(-1.5%, -1.5%);
+  }
+  100% {
+    transform: scale(1.05) translate(0, 0);
+  }
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Slow cinematic zoom/pan on hero & feature images */
+@utility ken-burns {
+  animation: ken-burns 22s ease-in-out infinite;
+  will-change: transform;
+}
+
+@utility float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+/* Image card hover zoom: put on the <img> inside a `group` + overflow-hidden */
+@utility img-zoom {
+  transition: transform 0.7s var(--ease-out-expo);
+}
+.group:hover .img-zoom {
+  transform: scale(1.08);
+}
