@@ -1,26 +1,9 @@
-"use client";
-
-import {
-  Sparkles,
-  Stethoscope,
-  Smile,
-  HeartPulse,
-  Moon,
-  ShieldCheck,
-  type LucideIcon,
-} from "lucide-react";
-import { motion, useReducedMotion } from "motion/react";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
+import { ZoomImage } from "@/components/ui/ZoomImage";
 import { services } from "@/lib/site";
-
-const icons: Record<string, LucideIcon> = {
-  sparkles: Sparkles,
-  implant: Stethoscope,
-  smile: Smile,
-  "first-aid": HeartPulse,
-  moon: Moon,
-  tooth: ShieldCheck,
-};
+import { img } from "@/lib/images";
 
 const blurb: Record<string, string> = {
   whitening: "הלבנה מקצועית לחיוך בהיר ומבריק, בשיטות עדינות ובטוחות.",
@@ -32,8 +15,6 @@ const blurb: Record<string, string> = {
 };
 
 export function Services() {
-  const reduce = useReducedMotion();
-
   return (
     <section id="services" className="mx-auto max-w-7xl px-6 py-20">
       <Reveal className="mb-12 text-center">
@@ -46,27 +27,36 @@ export function Services() {
       </Reveal>
 
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {services.map((s, i) => {
-          const Icon = icons[s.icon] ?? ShieldCheck;
-          return (
-            <Reveal key={s.slug} delay={i * 0.05}>
-              <motion.article
-                whileHover={reduce ? undefined : { y: -6 }}
-                transition={{ type: "spring", stiffness: 300, damping: 22 }}
-                className="group relative h-full overflow-hidden rounded-glass glass p-6"
-              >
-                <div className="absolute -right-10 -top-10 size-28 rounded-full bg-brand-400/20 blur-2xl transition-opacity group-hover:opacity-100 opacity-0" />
-                <span className="grid size-14 place-items-center rounded-2xl bg-brand-500/10 text-brand-600 transition-colors group-hover:bg-brand-500 group-hover:text-white">
-                  <Icon className="size-7" />
-                </span>
-                <h3 className="text-display mt-5 text-xl text-ink">{s.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-ink-soft">
+        {services.map((s, i) => (
+          <Reveal key={s.slug} delay={i * 0.05}>
+            <Link
+              href={`/services/${s.slug}`}
+              className="group relative block h-72 overflow-hidden rounded-glass shadow-lg shadow-brand-950/10 ring-1 ring-white/30 transition-shadow hover:shadow-2xl hover:shadow-brand-950/20"
+            >
+              <ZoomImage
+                src={img.services[s.slug].src}
+                alt={img.services[s.slug].alt}
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                overlay
+              />
+              {/* extra bottom darkening for legible text */}
+              <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-brand-950/90 via-brand-950/40 to-transparent" />
+
+              <div className="absolute inset-x-0 bottom-0 p-6">
+                <h3 className="text-display text-xl text-white drop-shadow">
+                  {s.title}
+                </h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-white/80">
                   {blurb[s.slug]}
                 </p>
-              </motion.article>
-            </Reveal>
-          );
-        })}
+                <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-accent-400 transition-transform group-hover:-translate-x-1">
+                  קראו עוד
+                  <ArrowLeft className="size-4" />
+                </span>
+              </div>
+            </Link>
+          </Reveal>
+        ))}
       </div>
     </section>
   );

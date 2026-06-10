@@ -10,12 +10,16 @@ import {
 } from "motion/react";
 import { ShieldCheck, Star, Clock } from "lucide-react";
 import { MagneticButton } from "@/components/ui/MagneticButton";
+import { KenBurns } from "@/components/ui/KenBurns";
+import { ZoomImage } from "@/components/ui/ZoomImage";
 import { clinic } from "@/lib/site";
+import { img } from "@/lib/images";
 
 /**
- * Cinematic hero with cursor-reactive parallax depth.
- * The current site swaps flat images on hover; here the whole scene has
- * real depth — layers drift toward the cursor at different rates.
+ * Cinematic, image-rich hero.
+ * Large Ken-Burns photograph of a real patient + floating glass cards
+ * with the clinic interior and Dr. Hod, all drifting toward the cursor
+ * at different rates for true parallax depth.
  */
 export function Hero() {
   const reduce = useReducedMotion();
@@ -27,12 +31,12 @@ export function Hero() {
   const sy = useSpring(my, { stiffness: 120, damping: 20, mass: 0.6 });
 
   // Layer depths (px of travel)
-  const farX = useTransform(sx, [-0.5, 0.5], [-12, 12]);
-  const farY = useTransform(sy, [-0.5, 0.5], [-12, 12]);
-  const midX = useTransform(sx, [-0.5, 0.5], [-26, 26]);
-  const midY = useTransform(sy, [-0.5, 0.5], [-26, 26]);
-  const nearX = useTransform(sx, [-0.5, 0.5], [-44, 44]);
-  const nearY = useTransform(sy, [-0.5, 0.5], [-44, 44]);
+  const farX = useTransform(sx, [-0.5, 0.5], [-10, 10]);
+  const farY = useTransform(sy, [-0.5, 0.5], [-10, 10]);
+  const midX = useTransform(sx, [-0.5, 0.5], [-22, 22]);
+  const midY = useTransform(sy, [-0.5, 0.5], [-22, 22]);
+  const nearX = useTransform(sx, [-0.5, 0.5], [-40, 40]);
+  const nearY = useTransform(sy, [-0.5, 0.5], [-40, 40]);
 
   function onMove(e: React.MouseEvent) {
     if (reduce || !ref.current) return;
@@ -97,10 +101,7 @@ export function Hero() {
             >
               קביעת תור · {clinic.phoneMobile}
             </MagneticButton>
-            <MagneticButton
-              href="/services"
-              className="glass text-brand-700"
-            >
+            <MagneticButton href="/services" className="glass text-brand-700">
               השירותים שלנו
             </MagneticButton>
           </motion.div>
@@ -117,35 +118,63 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Parallax visual */}
-        <div className="relative h-[26rem] sm:h-[30rem]">
+        {/* Cinematic photographic visual */}
+        <div className="relative h-[28rem] sm:h-[32rem]">
+          {/* Glow behind */}
           <motion.div
             style={reduce ? undefined : { x: farX, y: farY }}
-            className="absolute inset-x-8 top-6 bottom-10 rounded-[2.5rem] bg-gradient-to-br from-brand-400/30 to-brand-700/30 blur-2xl"
+            className="absolute inset-x-6 top-4 bottom-8 rounded-[2.5rem] bg-gradient-to-br from-brand-400/30 to-brand-700/30 blur-3xl"
           />
+
+          {/* Main hero photo (mid layer) */}
           <motion.div
             style={reduce ? undefined : { x: midX, y: midY }}
-            className="absolute inset-6 grid place-items-center rounded-[2.5rem] glass-strong"
+            className="absolute inset-4"
           >
-            <span className="text-[9rem] leading-none drop-shadow-xl">🦷</span>
+            <KenBurns
+              src={img.heroPatient.src}
+              alt={img.heroPatient.alt}
+              priority
+              overlay
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="h-full w-full rounded-[2.25rem] shadow-2xl shadow-brand-950/20 ring-1 ring-white/40"
+            />
           </motion.div>
 
-          {/* Floating trust cards (near layer) */}
+          {/* Floating clinic-interior card (near layer) */}
           <motion.div
             style={reduce ? undefined : { x: nearX, y: nearY }}
-            className="absolute -right-2 top-10 rounded-2xl glass-strong px-4 py-3 shadow-lg"
+            className="group absolute -left-3 bottom-6 h-32 w-44 overflow-hidden rounded-2xl shadow-xl shadow-brand-950/25 ring-1 ring-white/50 sm:-left-6 sm:h-36 sm:w-52"
           >
-            <div className="text-display text-2xl text-brand-600">30+</div>
-            <div className="text-xs text-ink-faint">שנות ניסיון</div>
+            <ZoomImage
+              src={img.clinicInterior.src}
+              alt={img.clinicInterior.alt}
+              sizes="220px"
+              overlay
+            />
+            <span className="absolute bottom-2 right-3 text-xs font-semibold text-white drop-shadow">
+              המרפאה שלנו
+            </span>
           </motion.div>
+
+          {/* Floating Dr. Hod card (near layer) */}
           <motion.div
             style={reduce ? undefined : { x: nearX, y: nearY }}
-            className="absolute -left-2 bottom-8 flex items-center gap-2 rounded-2xl glass-strong px-4 py-3 shadow-lg"
+            className="group absolute -right-3 top-8 flex items-center gap-3 rounded-2xl glass-strong px-3 py-3 shadow-xl sm:-right-5"
           >
-            <Star className="size-5 fill-accent-500 text-accent-500" />
-            <div>
-              <div className="text-display text-lg leading-none text-ink">5.0</div>
-              <div className="text-xs text-ink-faint">מטופלים ממליצים</div>
+            <span className="relative block size-12 overflow-hidden rounded-full ring-2 ring-white/60">
+              <ZoomImage
+                src={img.drHod.src}
+                alt={img.drHod.alt}
+                sizes="48px"
+              />
+            </span>
+            <div className="leading-tight">
+              <div className="text-display text-sm text-ink">ד״ר יורם הוד</div>
+              <div className="flex items-center gap-1 text-xs text-ink-faint">
+                <Star className="size-3.5 fill-accent-500 text-accent-500" />
+                5.0 · מומלץ ביהוד
+              </div>
             </div>
           </motion.div>
         </div>
