@@ -1,0 +1,158 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Dr. Hod — Cinematic & Premium design system
+   Hebrew-first, RTL, glass + depth. Tailwind v4 (CSS-first).
+   ============================================================ */
+
+:root {
+  /* Brand — refined from the clinic's blue, elevated for premium feel */
+  --brand-50: #eef9ff;
+  --brand-100: #d9f1ff;
+  --brand-200: #bce7ff;
+  --brand-300: #8ed9ff;
+  --brand-400: #59c2ff;
+  --brand-500: #2aa6f5; /* primary */
+  --brand-600: #1486d6;
+  --brand-700: #126bad;
+  --brand-800: #155a8d;
+  --brand-900: #164b74;
+  --brand-950: #0d2f4d;
+
+  /* Warm accent — replaces the harsh highlighter-yellow with refined gold */
+  --accent-400: #ffd56a;
+  --accent-500: #f5b73c;
+  --accent-600: #d9971f;
+
+  /* Surfaces & ink (light theme defaults) */
+  --bg: #f7fbfe;
+  --bg-elev: #ffffff;
+  --ink: #0c1b29;
+  --ink-soft: #3d5468;
+  --ink-faint: #6b8298;
+  --line: #e1ecf4;
+
+  /* Glass tokens */
+  --glass-bg: rgba(255, 255, 255, 0.55);
+  --glass-bg-strong: rgba(255, 255, 255, 0.75);
+  --glass-border: rgba(18, 107, 173, 0.12);
+  --glass-shadow: 0 8px 40px -12px rgba(13, 47, 77, 0.18);
+  --glass-blur: 16px;
+
+  /* Radius & motion */
+  --radius: 1.25rem;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #060c14;
+    --bg-elev: #0b1623;
+    --ink: #eaf4fc;
+    --ink-soft: #a9c2d6;
+    --ink-faint: #6f8aa2;
+    --line: rgba(255, 255, 255, 0.08);
+
+    --glass-bg: rgba(255, 255, 255, 0.06);
+    --glass-bg-strong: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-shadow: 0 8px 40px -12px rgba(0, 0, 0, 0.6);
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-elev: var(--bg-elev);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-line: var(--line);
+
+  --color-brand-50: var(--brand-50);
+  --color-brand-100: var(--brand-100);
+  --color-brand-200: var(--brand-200);
+  --color-brand-300: var(--brand-300);
+  --color-brand-400: var(--brand-400);
+  --color-brand-500: var(--brand-500);
+  --color-brand-600: var(--brand-600);
+  --color-brand-700: var(--brand-700);
+  --color-brand-800: var(--brand-800);
+  --color-brand-900: var(--brand-900);
+  --color-brand-950: var(--brand-950);
+
+  --color-accent-400: var(--accent-400);
+  --color-accent-500: var(--accent-500);
+  --color-accent-600: var(--accent-600);
+
+  --radius-glass: var(--radius);
+
+  --font-sans: var(--font-heebo), "Segoe UI", system-ui, sans-serif;
+  --font-display: var(--font-rubik), var(--font-heebo), sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* Ambient brand glow behind the page — part of the "out of this world" depth */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(60rem 40rem at 85% -10%, color-mix(in srgb, var(--brand-400) 22%, transparent), transparent 60%),
+    radial-gradient(50rem 40rem at -10% 20%, color-mix(in srgb, var(--brand-600) 16%, transparent), transparent 55%);
+}
+
+/* ---- Reusable surface utilities ---- */
+@utility glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+}
+
+@utility glass-strong {
+  background: var(--glass-bg-strong);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: blur(calc(var(--glass-blur) + 6px)) saturate(150%);
+  -webkit-backdrop-filter: blur(calc(var(--glass-blur) + 6px)) saturate(150%);
+}
+
+/* Display heading helper */
+@utility text-display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+/* ---- Accessibility: honour reduced motion (legal + UX requirement) ---- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
