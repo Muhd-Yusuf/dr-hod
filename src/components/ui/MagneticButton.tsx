@@ -47,7 +47,7 @@ export function MagneticButton({
   }
 
   const base =
-    "relative inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 font-semibold transition-colors will-change-transform";
+    "liquid-sheen overflow-hidden inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 font-semibold transition-colors will-change-transform";
   const style = reduce ? undefined : { x: sx, y: sy };
 
   if (href) {

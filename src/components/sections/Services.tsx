@@ -31,7 +31,7 @@ export function Services() {
           <Reveal key={s.slug} delay={i * 0.05}>
             <Link
               href={`/services/${s.slug}`}
-              className="group relative block h-72 overflow-hidden rounded-glass shadow-lg shadow-brand-950/10 ring-1 ring-white/30 transition-shadow hover:shadow-2xl hover:shadow-brand-950/20"
+              className="group liquid-sheen relative block h-72 overflow-hidden rounded-glass shadow-lg shadow-brand-950/10 ring-1 ring-white/30 transition-shadow hover:shadow-2xl hover:shadow-brand-950/20"
             >
               <ZoomImage
                 src={img.services[s.slug].src}
