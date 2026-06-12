@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
         output: "export",
         basePath: `/${repo}`,
         assetPrefix: `/${repo}/`,
-        images: { unoptimized: true },
+        images: { loader: "custom", loaderFile: "./image-loader.ts" },
         trailingSlash: true,
       }
     : {}),
