@@ -61,7 +61,7 @@ export function Hero() {
             className="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-sm font-medium text-brand-700"
           >
             <Star className="size-4 fill-accent-500 text-accent-500" />
-            למעלה מ-30 שנות ניסיון · יהוד והסביבה
+            למעלה מ-40 שנות ניסיון · יהוד והסביבה
           </motion.span>
 
           <motion.h1

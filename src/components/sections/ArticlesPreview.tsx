@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
-import { ZoomImage } from "@/components/ui/ZoomImage";
-import { articles } from "@/lib/articles";
+import { posts, type Post } from "@/lib/posts";
 
 const dateFmt = new Intl.DateTimeFormat("he-IL", {
   day: "numeric",
@@ -10,8 +9,13 @@ const dateFmt = new Intl.DateTimeFormat("he-IL", {
   year: "numeric",
 });
 
+function lead(p: Post): string {
+  const first = p.body.find((b) => "p" in b) as { p: string } | undefined;
+  return first ? first.p : "";
+}
+
 export function ArticlesPreview() {
-  const latest = [...articles]
+  const latest = [...posts]
     .sort((a, b) => +new Date(b.date) - +new Date(a.date))
     .slice(0, 3);
 
@@ -27,7 +31,7 @@ export function ArticlesPreview() {
           </h2>
         </div>
         <Link
-          href="/articles"
+          href="/מאמרים-נוספים/"
           className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 transition-transform hover:-translate-x-1"
         >
           לכל המאמרים
@@ -39,15 +43,18 @@ export function ArticlesPreview() {
         {latest.map((a, i) => (
           <Reveal key={a.slug} delay={i * 0.05}>
             <Link
-              href={`/articles/${a.slug}`}
+              href={`/${a.slug}/`}
               className="group flex h-full flex-col overflow-hidden rounded-glass glass shadow-lg shadow-brand-950/10 ring-1 ring-white/30 transition-shadow hover:shadow-2xl hover:shadow-brand-950/15"
             >
-              <div className="relative h-48 overflow-hidden">
-                <ZoomImage
-                  src={a.image}
-                  alt={a.title}
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                />
+              <div className="relative h-48 overflow-hidden bg-gradient-to-br from-brand-400 to-brand-700">
+                {a.image && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={a.image}
+                    alt={a.title}
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                )}
                 <span className="absolute right-3 top-3 rounded-full bg-brand-500/90 px-3 py-1 text-xs font-semibold text-white backdrop-blur">
                   {a.category}
                 </span>
@@ -61,7 +68,7 @@ export function ArticlesPreview() {
                   {a.title}
                 </h3>
                 <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-ink-soft">
-                  {a.excerpt}
+                  {lead(a)}
                 </p>
                 <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 transition-transform group-hover:-translate-x-1">
                   קראו עוד
