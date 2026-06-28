@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Clock, MapPin, Phone } from "lucide-react";
-import { clinic, nav } from "@/lib/site";
+import { clinic, nav, seoKeywords } from "@/lib/site";
 
 export function Footer() {
   return (
@@ -14,7 +14,7 @@ export function Footer() {
             <span className="text-display text-lg">ד״ר יורם הוד</span>
           </div>
           <p className="max-w-xs text-sm leading-relaxed text-ink-soft">
-            {clinic.tagline}. למעלה מ-30 שנות ניסיון, באווירה רגועה ומקצועית
+            {clinic.tagline}. למעלה מ-40 שנות ניסיון, באווירה רגועה ומקצועית
             לכל המשפחה.
           </p>
         </div>
@@ -58,6 +58,13 @@ export function Footer() {
             </li>
           </ul>
         </div>
+      </div>
+
+      {/* SEO keyword block — preserved 1:1 from the live site for ranking continuity */}
+      <div className="border-t border-line">
+        <p className="mx-auto max-w-7xl px-6 py-6 text-center text-[11px] leading-relaxed text-ink-faint/70">
+          {seoKeywords}
+        </p>
       </div>
 
       <div className="border-t border-line">
