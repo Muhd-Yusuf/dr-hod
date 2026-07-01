@@ -69,7 +69,7 @@ const sections = [
   {
     title: "יצירת קשר",
     paras: [
-      `לכל שאלה בנוגע לתנאי השימוש ניתן לפנות אלינו בטלפון ${clinic.phoneMobile} או בכתובת ${clinic.address}.`,
+      `לכל שאלה בנוגע לתנאי השימוש ניתן לפנות אלינו בטלפון ${clinic.phone} או בכתובת ${clinic.address}.`,
     ],
   },
 ];

@@ -110,10 +110,10 @@ export default function ServicesPage() {
               </p>
               <div className="mt-7 flex flex-wrap justify-center gap-4">
                 <MagneticButton
-                  href={`tel:${clinic.telMobile}`}
+                  href={`tel:${clinic.tel}`}
                   className="bg-brand-500 text-white shadow-xl shadow-brand-500/30"
                 >
-                  חייגו {clinic.phoneMobile}
+                  חייגו {clinic.phone}
                 </MagneticButton>
                 <MagneticButton
                   href="/contact"

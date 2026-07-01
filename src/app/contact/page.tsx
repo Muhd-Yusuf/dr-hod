@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { MapPin, Phone, Smartphone, Clock } from "lucide-react";
+import { MapPin, Phone, Clock } from "lucide-react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { KenBurns } from "@/components/ui/KenBurns";
@@ -11,7 +11,7 @@ import { img } from "@/lib/images";
 export const metadata: Metadata = {
   title: "צור קשר",
   description:
-    "צרו קשר עם מרפאת השיניים של ד״ר יורם הוד ביהוד — רחוב הוורדים 34. השאירו פרטים, התקשרו או מצאו אותנו על המפה. נשמח לקבוע לכם תור.",
+    "צרו קשר עם מרפאת השיניים של ד״ר יורם הוד ביהוד — רחוב הורדים 34. השאירו פרטים, התקשרו או מצאו אותנו על המפה. נשמח לקבוע לכם תור.",
   alternates: { canonical: "/contact" },
 };
 
@@ -76,32 +76,16 @@ export default function ContactPage() {
 
                   <li className="flex items-start gap-4">
                     <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-brand-500/10 text-brand-600">
-                      <Smartphone className="size-6" />
-                    </span>
-                    <div>
-                      <p className="text-sm font-medium text-ink-faint">נייד</p>
-                      <a
-                        href={`tel:${clinic.telMobile}`}
-                        className="mt-0.5 inline-block text-lg text-ink transition hover:text-brand-600"
-                        dir="ltr"
-                      >
-                        {clinic.phoneMobile}
-                      </a>
-                    </div>
-                  </li>
-
-                  <li className="flex items-start gap-4">
-                    <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-brand-500/10 text-brand-600">
                       <Phone className="size-6" />
                     </span>
                     <div>
-                      <p className="text-sm font-medium text-ink-faint">מרפאה</p>
+                      <p className="text-sm font-medium text-ink-faint">טלפון</p>
                       <a
-                        href={`tel:${clinic.telClinic}`}
+                        href={`tel:${clinic.tel}`}
                         className="mt-0.5 inline-block text-lg text-ink transition hover:text-brand-600"
                         dir="ltr"
                       >
-                        {clinic.phoneClinic}
+                        {clinic.phone}
                       </a>
                     </div>
                   </li>

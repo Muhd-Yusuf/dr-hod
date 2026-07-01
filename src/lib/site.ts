@@ -6,16 +6,14 @@
 export const clinic = {
   name: "ד״ר יורם הוד",
   tagline: "מרפאת שיניים מובילה ביהוד והסביבה",
-  address: "רחוב הוורדים 34, יהוד",
-  addressEn: "34 HaVradim Street, Yehud",
-  phoneMobile: "052-917-2942",
-  phoneClinic: "054-559-4444",
-  // tel: links (E.164-ish, IL)
-  telMobile: "+972529172942",
-  telClinic: "+972545594444",
+  address: "רחוב הורדים 34, יהוד",
+  addressEn: "34 Hordim Street, Yehud",
+  // Single clinic number — the only phone that may appear anywhere (client rule, 2026-07-01).
+  phone: "054-559-4444",
+  tel: "+972545594444",
   hours: "ראשון–חמישי: 09:00–13:00, 17:00–20:00",
   hoursShort: "א׳–ה׳ 09:00–13:00 · 17:00–20:00",
-  mapsQuery: "רחוב הוורדים 34, יהוד",
+  mapsQuery: "רחוב הורדים 34, יהוד",
 } as const;
 
 /** Primary navigation — RTL order (first item appears right-most). */

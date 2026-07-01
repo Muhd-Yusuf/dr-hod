@@ -29,18 +29,11 @@ export function Header() {
           </div>
           <div className="flex items-center gap-5">
             <a
-              href={`tel:${clinic.telMobile}`}
+              href={`tel:${clinic.tel}`}
               className="flex items-center gap-1.5 transition-colors hover:text-accent-400"
             >
               <Phone className="size-4 text-accent-400" />
-              נייד: {clinic.phoneMobile}
-            </a>
-            <a
-              href={`tel:${clinic.telClinic}`}
-              className="flex items-center gap-1.5 transition-colors hover:text-accent-400"
-            >
-              <Phone className="size-4 text-accent-400" />
-              מרפאה: {clinic.phoneClinic}
+              טלפון: {clinic.phone}
             </a>
             <span className="hidden items-center gap-1.5 lg:flex">
               <Clock className="size-4 text-accent-400" />
@@ -83,12 +76,12 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <a
-              href={`tel:${clinic.telMobile}`}
+            <Link
+              href="/contact"
               className="hidden rounded-full bg-brand-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-brand-500/30 transition-transform hover:scale-[1.03] sm:inline-flex"
             >
               קביעת תור
-            </a>
+            </Link>
             <button
               onClick={() => setOpen(true)}
               aria-label="פתיחת תפריט"
@@ -143,10 +136,10 @@ export function Header() {
                 ))}
               </nav>
               <a
-                href={`tel:${clinic.telMobile}`}
+                href={`tel:${clinic.tel}`}
                 className="mt-6 flex w-full items-center justify-center rounded-full bg-brand-500 px-5 py-3.5 font-semibold text-white"
               >
-                קביעת תור · {clinic.phoneMobile}
+                קביעת תור · {clinic.phone}
               </a>
             </motion.aside>
           </motion.div>
