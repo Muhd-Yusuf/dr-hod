@@ -1,4 +1,4 @@
-import { Phone } from "lucide-react";
+import { Phone, CalendarClock } from "lucide-react";
 import { KenBurns } from "@/components/ui/KenBurns";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { Reveal } from "@/components/ui/Reveal";
@@ -33,18 +33,18 @@ export function CtaBanner() {
 
             <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
               <MagneticButton
-                href={`tel:${clinic.telMobile}`}
+                href="/contact"
                 className="bg-white text-brand-700 shadow-xl shadow-brand-950/30"
               >
-                <Phone className="size-5" />
-                {clinic.phoneMobile}
+                <CalendarClock className="size-5" />
+                קביעת תור
               </MagneticButton>
               <MagneticButton
-                href={`tel:${clinic.telClinic}`}
+                href={`tel:${clinic.tel}`}
                 className="glass-strong text-white ring-1 ring-white/40"
               >
                 <Phone className="size-5" />
-                מרפאה · {clinic.phoneClinic}
+                {clinic.phone}
               </MagneticButton>
             </div>
           </Reveal>
