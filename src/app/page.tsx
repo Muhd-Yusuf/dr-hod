@@ -6,6 +6,7 @@ import { Services } from "@/components/sections/Services";
 import { ClinicServices } from "@/components/sections/ClinicServices";
 import { Gallery } from "@/components/sections/Gallery";
 import { Testimonials } from "@/components/sections/Testimonials";
+import { VideoGallery } from "@/components/sections/VideoGallery";
 import { ArticlesPreview } from "@/components/sections/ArticlesPreview";
 import { CtaBanner } from "@/components/sections/CtaBanner";
 
@@ -25,6 +26,7 @@ export default function Home() {
         <ClinicServices />
         <Gallery />
         <Testimonials />
+        <VideoGallery />
         <ArticlesPreview />
         <CtaBanner />
       </main>

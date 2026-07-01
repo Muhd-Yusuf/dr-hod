@@ -21,6 +21,7 @@ const nextConfig: NextConfig = {
         images: {
           remotePatterns: [
             { protocol: "https", hostname: "www.dr-hod.info" },
+            { protocol: "https", hostname: "i.ytimg.com" },
           ],
         },
         // 301 the rebuild's old English routes onto the real live Hebrew URLs.
