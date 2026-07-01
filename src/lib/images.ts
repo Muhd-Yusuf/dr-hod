@@ -5,7 +5,9 @@
  */
 export const img = {
   heroPatient: { src: "/images/hero-patient.jpg", alt: "מטופלת מחייכת במרפאת השיניים" },
-  clinicInterior: { src: "/images/clinic-interior.jpg", alt: "חלל מרפאת השיניים של ד״ר יורם הוד" },
+  // Real clinic photo supplied by the client (2026-07-01).
+  clinicInterior: { src: "/images/clinic-real.png", alt: "מרפאת השיניים של ד״ר יורם הוד ביהוד" },
+  // TODO: replace with Dr. Hod's real photo from his existing site (do NOT use stock).
   drHod: { src: "/images/dr-hod.jpg", alt: "ד״ר יורם הוד, רופא שיניים" },
 
   services: {
