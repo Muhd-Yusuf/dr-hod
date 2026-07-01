@@ -34,10 +34,10 @@ export default function ThanksPage() {
             </p>
             <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
               <MagneticButton
-                href={`tel:${clinic.telMobile}`}
+                href={`tel:${clinic.tel}`}
                 className="rounded-full bg-brand-500 px-7 py-3.5 text-sm font-semibold text-white shadow-xl shadow-brand-500/30"
               >
-                התקשרו עכשיו · {clinic.phoneMobile}
+                התקשרו עכשיו · {clinic.phone}
               </MagneticButton>
               <Link
                 href="/"

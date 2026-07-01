@@ -128,11 +128,11 @@ export default function RecommendationsPage() {
             <Reveal direction="up" delay={0.2}>
               <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
                 <MagneticButton
-                  href={`tel:${clinic.telMobile}`}
+                  href={`tel:${clinic.tel}`}
                   className="bg-accent-500 text-white shadow-xl shadow-accent-500/30"
                 >
                   <Phone className="size-5" />
-                  {clinic.phoneMobile}
+                  {clinic.phone}
                 </MagneticButton>
                 <MagneticButton
                   href="/contact"

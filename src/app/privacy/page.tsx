@@ -66,7 +66,7 @@ const sections = [
   {
     title: "יצירת קשר",
     paras: [
-      `בכל שאלה בנוגע למדיניות הפרטיות ניתן לפנות אלינו בטלפון ${clinic.phoneMobile} או בכתובת ${clinic.address}.`,
+      `בכל שאלה בנוגע למדיניות הפרטיות ניתן לפנות אלינו בטלפון ${clinic.phone} או בכתובת ${clinic.address}.`,
     ],
   },
 ];
