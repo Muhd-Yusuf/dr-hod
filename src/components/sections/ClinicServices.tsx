@@ -1,32 +1,20 @@
-import {
-  Sparkles,
-  Bone,
-  Smile,
-  ShieldCheck,
-  BriefcaseMedical,
-  Stethoscope,
-  Baby,
-  Wind,
-  Brain,
-  Droplets,
-  AlignHorizontalDistributeCenter,
-  type LucideIcon,
-} from "lucide-react";
+import Image from "next/image";
 import { Reveal } from "@/components/ui/Reveal";
 
-/** Full clinic service list — 1:1 with the live site's "שירותי המרפאה" grid. */
-const clinicServices: { title: string; icon: LucideIcon }[] = [
-  { title: "בדיקת שיניים", icon: Stethoscope },
-  { title: "מרפאת חירום ועזרה ראשונה", icon: BriefcaseMedical },
-  { title: "רפואת שיניים משמרת", icon: ShieldCheck },
-  { title: "שיקום הפה", icon: Smile },
-  { title: "שתלים", icon: Bone },
-  { title: "הלבנת שיניים", icon: Sparkles },
-  { title: "יישור שיניים שקוף", icon: AlignHorizontalDistributeCenter },
-  { title: "ניקוי אבנית (שיננית)", icon: Droplets },
-  { title: "טיפול בחרדה דנטלית", icon: Brain },
-  { title: "ריח רע מהפה", icon: Wind },
-  { title: "טיפול בילדים", icon: Baby },
+/** Full clinic service list — 1:1 with the live site's "שירותי המרפאה" grid.
+ *  Icons are the clinic's own dental icon set (extracted from the live site). */
+const clinicServices: { title: string; icon: string }[] = [
+  { title: "בדיקת שיניים", icon: "dental-exam" },
+  { title: "מרפאת חירום ועזרה ראשונה", icon: "emergency" },
+  { title: "רפואת שיניים משמרת", icon: "shift-dentistry" },
+  { title: "שיקום הפה", icon: "oral-rehab" },
+  { title: "שתלים", icon: "implants" },
+  { title: "הלבנת שיניים", icon: "whitening" },
+  { title: "יישור שיניים שקוף", icon: "clear-braces" },
+  { title: "ניקוי אבנית (שיננית)", icon: "tartar-cleaning" },
+  { title: "טיפול בחרדה דנטלית", icon: "dental-anxiety" },
+  { title: "ריח רע מהפה", icon: "bad-breath" },
+  { title: "טיפול בילדים", icon: "childcare" },
 ];
 
 export function ClinicServices() {
@@ -45,21 +33,24 @@ export function ClinicServices() {
         </Reveal>
 
         <div className="grid grid-cols-2 gap-x-4 gap-y-9 sm:grid-cols-3 lg:grid-cols-6">
-          {clinicServices.map((s, i) => {
-            const Icon = s.icon;
-            return (
-              <Reveal key={s.title} delay={(i % 6) * 0.05}>
-                <div className="group flex flex-col items-center text-center">
-                  <span className="grid size-16 place-items-center rounded-2xl glass text-brand-600 shadow-lg shadow-brand-950/5 transition-all duration-300 group-hover:-translate-y-1 group-hover:bg-brand-500 group-hover:text-white">
-                    <Icon className="size-7" strokeWidth={1.75} />
-                  </span>
-                  <span className="mt-3 text-sm font-medium leading-snug text-ink-soft">
-                    {s.title}
-                  </span>
-                </div>
-              </Reveal>
-            );
-          })}
+          {clinicServices.map((s, i) => (
+            <Reveal key={s.title} delay={(i % 6) * 0.05}>
+              <div className="group flex flex-col items-center text-center">
+                <span className="grid size-16 place-items-center rounded-2xl glass shadow-lg shadow-brand-950/5 transition-all duration-300 group-hover:-translate-y-1 group-hover:bg-brand-500">
+                  <Image
+                    src={`/images/services-icons/${s.icon}.png`}
+                    alt={s.title}
+                    width={36}
+                    height={36}
+                    className="size-9 object-contain transition group-hover:brightness-0 group-hover:invert"
+                  />
+                </span>
+                <span className="mt-3 text-sm font-medium leading-snug text-ink-soft">
+                  {s.title}
+                </span>
+              </div>
+            </Reveal>
+          ))}
         </div>
 
         <Reveal delay={0.1}>
