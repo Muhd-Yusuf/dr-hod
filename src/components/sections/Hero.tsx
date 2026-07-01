@@ -96,10 +96,10 @@ export function Hero() {
             className="mt-8 flex flex-wrap items-center gap-3"
           >
             <MagneticButton
-              href={`tel:${clinic.telMobile}`}
+              href={`tel:${clinic.tel}`}
               className="bg-brand-500 text-white shadow-xl shadow-brand-500/30"
             >
-              קביעת תור · {clinic.phoneMobile}
+              קביעת תור · {clinic.phone}
             </MagneticButton>
             <MagneticButton href="/services" className="glass text-brand-700">
               השירותים שלנו
