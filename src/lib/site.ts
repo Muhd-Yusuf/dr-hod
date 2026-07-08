@@ -48,6 +48,7 @@ export const services = [
   { slug: "implants", title: "השתלות שיניים", icon: "implant" },
   { slug: "rehabilitation", title: "שיקום הפה", icon: "smile" },
   { slug: "emergency", title: "טיפולי חירום", icon: "first-aid" },
-  { slug: "snoring", title: "טיפול בנחירות (לייזר FOTONA)", icon: "moon" },
+  { slug: "snoring", title: "טיפול בנחירות בלייזר", icon: "moon" },
+  { slug: "seniors", title: "טיפול שיניים לגיל השלישי", icon: "heart" },
   { slug: "general", title: "רפואת שיניים כללית", icon: "tooth" },
 ] as const;
