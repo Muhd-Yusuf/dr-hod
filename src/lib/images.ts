@@ -16,6 +16,8 @@ export const img = {
     rehabilitation: { src: "/images/svc-rehabilitation.jpg", alt: "שיקום הפה" },
     emergency: { src: "/images/svc-emergency.jpg", alt: "טיפולי חירום" },
     snoring: { src: "/images/svc-snoring.jpg", alt: "טיפול בנחירות" },
+    // TODO: swap for a real senior-care photo when available.
+    seniors: { src: "/images/svc-rehabilitation.jpg", alt: "טיפול שיניים לגיל השלישי" },
     general: { src: "/images/svc-general.jpg", alt: "רפואת שיניים כללית" },
   },
 
