@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Clock, MapPin, Phone, Menu, X } from "lucide-react";
+import { Clock, MapPin, Phone, Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
-import { clinic, nav } from "@/lib/site";
+import { clinic, nav, services } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 export function Header() {
@@ -64,15 +64,41 @@ export function Header() {
           </Link>
 
           <nav className="hidden items-center gap-1 lg:flex">
-            {nav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="rounded-full px-4 py-2 text-sm font-medium text-ink-soft transition-colors hover:bg-brand-50 hover:text-brand-700"
-              >
-                {item.label}
-              </Link>
-            ))}
+            {nav.map((item) =>
+              item.href === "/services" ? (
+                <div key={item.href} className="group relative">
+                  <Link
+                    href="/services"
+                    className="flex items-center gap-1 rounded-full px-4 py-2 text-sm font-medium text-ink-soft transition-colors hover:bg-brand-50 hover:text-brand-700"
+                  >
+                    {item.label}
+                    <ChevronDown className="size-4 transition-transform group-hover:rotate-180" />
+                  </Link>
+                  {/* dropdown (pt-2 bridges the hover gap) */}
+                  <div className="invisible absolute right-0 top-full z-50 pt-2 opacity-0 transition-all group-hover:visible group-hover:opacity-100">
+                    <div className="min-w-[16rem] rounded-2xl glass-strong p-2 shadow-xl">
+                      {services.map((s) => (
+                        <Link
+                          key={s.slug}
+                          href={`/services/${s.slug}`}
+                          className="block rounded-xl px-4 py-2.5 text-sm text-ink-soft transition-colors hover:bg-brand-50 hover:text-brand-700"
+                        >
+                          {s.title}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="rounded-full px-4 py-2 text-sm font-medium text-ink-soft transition-colors hover:bg-brand-50 hover:text-brand-700"
+                >
+                  {item.label}
+                </Link>
+              ),
+            )}
           </nav>
 
           <div className="flex items-center gap-2">
@@ -125,14 +151,29 @@ export function Header() {
               </div>
               <nav className="flex flex-col gap-1">
                 {nav.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setOpen(false)}
-                    className="rounded-2xl px-4 py-3 text-lg font-medium text-ink-soft transition-colors hover:bg-brand-50 hover:text-brand-700"
-                  >
-                    {item.label}
-                  </Link>
+                  <div key={item.href}>
+                    <Link
+                      href={item.href}
+                      onClick={() => setOpen(false)}
+                      className="block rounded-2xl px-4 py-3 text-lg font-medium text-ink-soft transition-colors hover:bg-brand-50 hover:text-brand-700"
+                    >
+                      {item.label}
+                    </Link>
+                    {item.href === "/services" && (
+                      <div className="mr-3 mt-1 flex flex-col gap-0.5 border-r border-line pr-3">
+                        {services.map((s) => (
+                          <Link
+                            key={s.slug}
+                            href={`/services/${s.slug}`}
+                            onClick={() => setOpen(false)}
+                            className="rounded-xl px-4 py-2 text-sm text-ink-soft transition-colors hover:bg-brand-50 hover:text-brand-700"
+                          >
+                            {s.title}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 ))}
               </nav>
               <a
