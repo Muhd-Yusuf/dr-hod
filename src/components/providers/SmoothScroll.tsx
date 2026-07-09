@@ -4,7 +4,7 @@ import { type ReactNode, useEffect } from "react";
 import Lenis from "lenis";
 
 /**
- * Lenis-powered smooth scrolling — the foundation of the "premium feel".
+ * Lenis-powered smooth scrolling, the foundation of the "premium feel".
  * Automatically disabled for users who prefer reduced motion (a11y + IL law).
  * RTL-safe: Lenis drives vertical scroll only, so direction is unaffected.
  */

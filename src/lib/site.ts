@@ -8,7 +8,7 @@ export const clinic = {
   tagline: "מרפאת שיניים מובילה ביהוד והסביבה",
   address: "רחוב הורדים 34, יהוד",
   addressEn: "34 Hordim Street, Yehud",
-  // Single clinic number — the only phone that may appear anywhere (client rule, 2026-07-01).
+  // Single clinic number, the only phone that may appear anywhere (client rule, 2026-07-01).
   phone: "054-559-4444",
   tel: "+972545594444",
   hours: "ראשון–חמישי: 09:00–13:00, 17:00–20:00",
@@ -16,7 +16,7 @@ export const clinic = {
   mapsQuery: "רחוב הורדים 34, יהוד",
 } as const;
 
-/** Primary navigation — RTL order (first item appears right-most). */
+/** Primary navigation, RTL order (first item appears right-most). */
 export const nav = [
   { label: "דף הבית", href: "/" },
   { label: "השירותים שלנו", href: "/services" },
@@ -27,7 +27,7 @@ export const nav = [
 ] as const;
 
 /**
- * SEO keyword block — verbatim from the live site footer (dr-hod.info).
+ * SEO keyword block, verbatim from the live site footer (dr-hod.info).
  * Preserved 1:1 for ranking continuity (Yehud / Or Yehuda / Petah Tikva / Merkaz).
  * Rendered small & muted at the very bottom of the footer.
  */

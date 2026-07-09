@@ -1,13 +1,13 @@
 /**
  * Self-hosted image manifest (in /public/images).
- * NOTE: these are professional stock placeholders — swap for the clinic's
+ * NOTE: these are professional stock placeholders, swap for the clinic's
  * real photos (Dr. Hod, clinic interior, real patients) once we have access.
  */
 export const img = {
   heroPatient: { src: "/images/hero-patient.jpg", alt: "מטופלת מחייכת במרפאת השיניים" },
   // Real clinic photo supplied by the client (2026-07-01).
   clinicInterior: { src: "/images/clinic-real.png", alt: "מרפאת השיניים של ד״ר יורם הוד ביהוד" },
-  // Dr. Hod's real photo (client-supplied, 2025-03-30) — his actual clinic.
+  // Dr. Hod's real photo (client-supplied, 2025-03-30), his actual clinic.
   drHod: { src: "/images/dr-hod-real.jpg", alt: "ד״ר יורם הוד במרפאתו ביהוד" },
 
   services: {
@@ -21,7 +21,7 @@ export const img = {
     general: { src: "/images/svc-general.jpg", alt: "רפואת שיניים כללית" },
   },
 
-  // Distinct photography for the homepage "peek inside" mosaic — kept unique
+  // Distinct photography for the homepage "peek inside" mosaic, kept unique
   // so no image repeats elsewhere on the site.
   gallery: [
     { src: "/images/article-clinic.jpg", alt: "מרפאת השיניים ד״ר יורם הוד" },

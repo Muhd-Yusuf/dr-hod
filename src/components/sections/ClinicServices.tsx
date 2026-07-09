@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Reveal } from "@/components/ui/Reveal";
 
-/** Full clinic service list — 1:1 with the live site's "שירותי המרפאה" grid.
+/** Full clinic service list, 1:1 with the live site's "שירותי המרפאה" grid.
  *  Icons are the clinic's own dental icon set (extracted from the live site). */
 const clinicServices: { title: string; icon: string }[] = [
   { title: "בדיקת שיניים", icon: "dental-exam" },
