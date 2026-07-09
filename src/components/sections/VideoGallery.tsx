@@ -7,7 +7,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { videos } from "@/lib/site";
 
 /**
- * Click-to-play YouTube facade — shows the thumbnail until clicked,
+ * Click-to-play YouTube facade, shows the thumbnail until clicked,
  * then swaps in the iframe. Avoids loading 4 heavy embeds up front.
  */
 function VideoCard({ id, title }: { id: string; title: string }) {

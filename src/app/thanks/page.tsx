@@ -7,7 +7,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { clinic } from "@/lib/site";
 
-// Form thank-you page — preserves the live /thanks/ URL.
+// Form thank-you page, preserves the live /thanks/ URL.
 export const metadata: Metadata = {
   title: "תודה שפניתם אלינו | ד״ר יורם הוד",
   description: "פנייתכם התקבלה. צוות מרפאת ד״ר יורם הוד ביהוד יחזור אליכם בהקדם.",

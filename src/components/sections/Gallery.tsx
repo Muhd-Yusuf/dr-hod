@@ -2,7 +2,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { ZoomImage } from "@/components/ui/ZoomImage";
 import { img } from "@/lib/images";
 
-/** Distinct gallery photography — unique images, not reused elsewhere. */
+/** Distinct gallery photography, unique images, not reused elsewhere. */
 const spans = [
   "sm:col-span-2 sm:row-span-2",
   "",
@@ -24,7 +24,7 @@ export function Gallery() {
           סביבה נעימה, רגועה ומזמינה
         </h2>
         <p className="mx-auto mt-3 max-w-2xl text-ink-soft">
-          מרחב מעוצב ומצויד בטכנולוגיה מתקדמת — תוכננו כדי להפוך כל ביקור לחוויה
+          מרחב מעוצב ומצויד בטכנולוגיה מתקדמת, תוכננו כדי להפוך כל ביקור לחוויה
           שקטה ונטולת חרדה.
         </p>
       </Reveal>

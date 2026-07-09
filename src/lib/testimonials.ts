@@ -1,4 +1,4 @@
-/** Patient testimonials — verbatim from the live site (dr-hod.info), Hebrew. */
+/** Patient testimonials, verbatim from the live site (dr-hod.info), Hebrew. */
 export type Testimonial = {
   name: string;
   text: string;

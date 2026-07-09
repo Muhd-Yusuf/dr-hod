@@ -12,7 +12,7 @@ import TermsContent from "@/app/terms/page";
 import { posts, type Post } from "@/lib/posts";
 
 // Root-level Hebrew permalinks (1:1 SEO), all served through this ASCII [slug]
-// route — Turbopack can't build non-ASCII *folder* names, so hub/privacy/terms
+// route, Turbopack can't build non-ASCII *folder* names, so hub/privacy/terms
 // are dispatched here by slug rather than as their own directories.
 const HUB = "מאמרים-נוספים";
 const PRIVACY = "מדיניות-פרטיות-דר-יורם-הוד-רופא-שיני";
@@ -51,7 +51,7 @@ export async function generateMetadata({
     return {
       title: "מאמרים נוספים",
       description:
-        "מאמרים בנושאי רפואת שיניים מאת ד״ר יורם הוד, מרפאת שיניים מובילה ביהוד — טיפול בנחירות בלייזר FOTONA, השתלות שיניים, עזרה ראשונה וטיפולי חירום ועוד.",
+        "מאמרים בנושאי רפואת שיניים מאת ד״ר יורם הוד, מרפאת שיניים מובילה ביהוד, טיפול בנחירות בלייזר FOTONA, השתלות שיניים, עזרה ראשונה וטיפולי חירום ועוד.",
       alternates: { canonical: `/${HUB}/` },
     };
   }
@@ -59,7 +59,7 @@ export async function generateMetadata({
     return {
       title: "מדיניות פרטיות",
       description:
-        "מדיניות הפרטיות של מרפאת השיניים ד״ר יורם הוד ביהוד — כיצד אנו אוספים, משתמשים ושומרים על המידע האישי שלכם.",
+        "מדיניות הפרטיות של מרפאת השיניים ד״ר יורם הוד ביהוד, כיצד אנו אוספים, משתמשים ושומרים על המידע האישי שלכם.",
       alternates: { canonical: `/${PRIVACY}/` },
     };
   }

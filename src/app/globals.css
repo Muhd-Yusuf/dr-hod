@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 /* ============================================================
-   Dr. Hod — OBSIDIAN AURORA · Liquid-Glass design system (Light)
+   Dr. Hod, OBSIDIAN AURORA · Liquid-Glass design system (Light)
    Airy bright base · drifting pastel aurora light · Apple-style
    liquid-glass surfaces (specular rim, refraction, light-catching).
    Hebrew-first, RTL. Tailwind v4 (CSS-first).
    ============================================================ */
 
 :root {
-  /* Brand — clinic blue, refined */
+  /* Brand, clinic blue, refined */
   --brand-50: #eef9ff;
   --brand-100: #d9f1ff;
   --brand-200: #bce7ff;
@@ -21,7 +21,7 @@
   --brand-900: #164b74;
   --brand-950: #0d2f4d;
 
-  /* Aurora light source — the drifting colors the glass catches */
+  /* Aurora light source, the drifting colors the glass catches */
   --aurora-1: #7dd3fc; /* sky */
   --aurora-2: #c4b5fd; /* violet */
   --aurora-3: #5eead4; /* teal/mint */
@@ -33,7 +33,7 @@
   --accent-500: #f5b73c;
   --accent-600: #d9971f;
 
-  /* Surfaces & ink — light, airy, cool */
+  /* Surfaces & ink, light, airy, cool */
   --bg: #eef3fb;
   --bg-elev: #ffffff;
   --ink: #0c1b29;
@@ -135,7 +135,7 @@ body {
 }
 
 /* ============================================================
-   AURORA — two drifting light layers behind everything
+   AURORA, two drifting light layers behind everything
    ============================================================ */
 body::before,
 body::after {
@@ -207,7 +207,7 @@ body::after {
   -webkit-backdrop-filter: blur(calc(var(--glass-blur) + 8px)) saturate(165%);
 }
 
-/* Liquid sheen — a diagonal highlight that sweeps across on hover.
+/* Liquid sheen, a diagonal highlight that sweeps across on hover.
    Put on a `relative overflow-hidden` element. */
 @utility liquid-sheen {
   position: relative;

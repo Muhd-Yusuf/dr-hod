@@ -60,7 +60,7 @@ export function Footer() {
         </div>
       </div>
 
-      {/* SEO keyword block — preserved 1:1 from the live site for ranking continuity */}
+      {/* SEO keyword block, preserved 1:1 from the live site for ranking continuity */}
       <div className="border-t border-line">
         <p className="mx-auto max-w-7xl px-6 py-6 text-center text-[11px] leading-relaxed text-ink-faint/70">
           {seoKeywords}
