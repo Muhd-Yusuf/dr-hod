@@ -10,6 +10,7 @@ const clinicServices: { title: string; icon: string }[] = [
   { title: "שיקום הפה", icon: "oral-rehab" },
   { title: "שתלים", icon: "implants" },
   { title: "הלבנת שיניים", icon: "whitening" },
+  { title: "טיפול בנחירות בלייזר", icon: "snoring" },
   { title: "יישור שיניים שקוף", icon: "clear-braces" },
   { title: "ניקוי אבנית (שיננית)", icon: "tartar-cleaning" },
   { title: "טיפול בחרדה דנטלית", icon: "dental-anxiety" },
