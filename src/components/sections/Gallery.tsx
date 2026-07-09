@@ -2,15 +2,16 @@ import { Reveal } from "@/components/ui/Reveal";
 import { ZoomImage } from "@/components/ui/ZoomImage";
 import { img } from "@/lib/images";
 
-/** Tiles reuse clinic / service / hero photography for a real "peek inside". */
-const tiles = [
-  { ...img.clinicInterior, className: "sm:col-span-2 sm:row-span-2" },
-  { ...img.services.implants, className: "" },
-  { ...img.heroPatient, className: "" },
-  { ...img.services.whitening, className: "" },
-  { ...img.drHod, className: "" },
-  { ...img.services.rehabilitation, className: "sm:col-span-2" },
+/** Distinct gallery photography — unique images, not reused elsewhere. */
+const spans = [
+  "sm:col-span-2 sm:row-span-2",
+  "",
+  "",
+  "",
+  "",
+  "sm:col-span-2",
 ];
+const tiles = img.gallery.map((g, i) => ({ ...g, className: spans[i] ?? "" }));
 
 export function Gallery() {
   return (
