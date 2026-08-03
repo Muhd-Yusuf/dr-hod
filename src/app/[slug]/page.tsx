@@ -73,7 +73,7 @@ export async function generateMetadata({
 
   const post = posts.find((p) => p.slug === dec);
   if (!post) return { title: "מאמר לא נמצא" };
-  const description = lead(post).slice(0, 160);
+  const description = post.description ?? lead(post).slice(0, 160);
   return {
     title: post.title,
     description,
@@ -87,14 +87,46 @@ export async function generateMetadata({
   };
 }
 
+const SITE = "https://www.dr-hod.info";
+
 function PostView({ post }: { post: Post }) {
   const related = [
     ...posts.filter((p) => p.slug !== post.slug && p.category === post.category),
     ...posts.filter((p) => p.slug !== post.slug && p.category !== post.category),
   ].slice(0, 3);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.description ?? lead(post).slice(0, 160),
+    inLanguage: "he-IL",
+    ...(post.image ? { image: `${SITE}${post.image}` } : {}),
+    datePublished: post.date,
+    dateModified: post.date,
+    author: { "@type": "Person", name: "ד״ר יורם הוד" },
+    publisher: {
+      "@type": "Dentist",
+      name: "מרפאת ד״ר יורם הוד",
+      telephone: "+972545594444",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "רחוב הורדים 34",
+        addressLocality: "יהוד",
+        addressCountry: "IL",
+      },
+    },
+    mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE}/${post.slug}/` },
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
       <Header />
       <main className="flex-1">
         {/* Hero */}
@@ -147,6 +179,29 @@ function PostView({ post }: { post: Post }) {
                 ),
               )}
             </div>
+
+            {/* Internal link to the matching service page (SEO) */}
+            {post.service && (
+              <Reveal direction="up">
+                <p className="mt-12 text-lg leading-relaxed text-ink-soft">
+                  רוצים לקרוא עוד על{" "}
+                  <Link
+                    href={post.service.href}
+                    className="font-semibold text-brand-700 underline decoration-brand-300 underline-offset-4 hover:text-brand-500"
+                  >
+                    {post.service.label}
+                  </Link>{" "}
+                  במרפאה? עברו לעמוד השירות המלא, או{" "}
+                  <Link
+                    href="/contact"
+                    className="font-semibold text-brand-700 underline decoration-brand-300 underline-offset-4 hover:text-brand-500"
+                  >
+                    צרו איתנו קשר
+                  </Link>{" "}
+                  לתיאום תור.
+                </p>
+              </Reveal>
+            )}
 
             {/* CTA */}
             <Reveal direction="up">
