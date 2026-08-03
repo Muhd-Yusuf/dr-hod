@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { posts } from "@/lib/posts";
+import { engineArticles } from "@/lib/engine-posts";
 
 const BASE = "https://www.dr-hod.info";
 
@@ -25,5 +26,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticUrls, ...postUrls];
+  // Engine articles: only APPROVED (live) ones belong in the sitemap.
+  // Drafts stay out until the practitioner approves (YMYL).
+  const blogUrls = engineArticles
+    .filter((a) => a.approved)
+    .map((a) => ({
+      url: `${BASE}/blog/${a.slug}/`,
+      ...(a.publishedAt ? { lastModified: a.publishedAt } : {}),
+      changeFrequency: "weekly" as const,
+      priority: 0.7,
+    }));
+
+  return [...staticUrls, ...postUrls, ...blogUrls];
 }
