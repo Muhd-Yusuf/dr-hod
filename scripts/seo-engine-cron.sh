@@ -34,17 +34,16 @@ LOG="$REPO/logs/seo-engine-$(date +%F).log"
   npm run build >/dev/null 2>&1 || { echo "build failed"; exit 1; }
   pm2 restart dr-hod >/dev/null
 
-  if [ -n "${GITHUB_TOKEN:-}" ]; then
-    git add data/engine-articles.json src/lib/engine-posts.ts
-    git -c user.name="seo-engine-bot" -c user.email="bot@dr-hod.info" \
-        commit -q -m "chore(seo): sync engine drafts $(date -u +%F)" || true
-    if git push "https://x-access-token:${GITHUB_TOKEN}@github.com/Muhd-Yusuf/dr-hod.git" HEAD:main -q; then
-      echo "pushed to GitHub"
-    else
-      echo "WARN: push failed — server is ahead of GitHub until resolved"
-    fi
+  # Push over SSH using the server's deploy key (configured via the repo's
+  # origin = git@github.com:... and core.sshCommand). Keeps GitHub the source
+  # of truth so manual `git reset --hard` deploys never discard synced drafts.
+  git add data/engine-articles.json src/lib/engine-posts.ts
+  git -c user.name="seo-engine-bot" -c user.email="bot@dr-hod.info" \
+      commit -q -m "chore(seo): sync engine drafts $(date -u +%F)" || true
+  if git push origin HEAD:main -q 2>/dev/null; then
+    echo "pushed to GitHub"
   else
-    echo "WARN: no GITHUB_TOKEN — rebuilt server-locally only; a manual reset --hard deploy would discard these drafts"
+    echo "WARN: push failed (deploy key not set up?) — server is ahead of GitHub until resolved"
   fi
   echo "done"
 } >> "$LOG" 2>&1
