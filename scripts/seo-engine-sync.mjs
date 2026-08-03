@@ -74,7 +74,17 @@ async function main() {
     merged.set(a.id, rec);
   }
 
-  const out = { client_id: CLIENT, synced_at: now, articles: [...merged.values()] };
+  const articles = [...merged.values()];
+
+  // Only rewrite when the article set actually changed (ignore the synced_at
+  // stamp) so the cron does not rebuild/commit on every no-op run.
+  const changed = JSON.stringify(articles) !== JSON.stringify(existing);
+  if (!changed) {
+    console.log(`Synced ${ready.length} ready article(s) — no change, file left as-is.`);
+    return;
+  }
+
+  const out = { client_id: CLIENT, synced_at: now, articles };
   fs.writeFileSync(OUT, JSON.stringify(out, null, 2) + "\n", "utf8");
 
   const drafts = out.articles.filter((a) => !a.approved && !a.published_at);
