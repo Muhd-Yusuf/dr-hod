@@ -43,17 +43,29 @@ export default function BlogIndex() {
                   <Reveal key={a.slug} direction="up" delay={i * 0.06}>
                     <Link
                       href={`/blog/${a.slug}/`}
-                      className="group block h-full rounded-glass glass-strong p-7 transition-shadow duration-500 hover:shadow-2xl hover:shadow-brand-950/10"
+                      className="group block h-full overflow-hidden rounded-glass glass-strong transition-shadow duration-500 hover:shadow-2xl hover:shadow-brand-950/10"
                     >
-                      <h2 className="text-display text-xl leading-snug text-ink transition-colors group-hover:text-brand-700">
-                        {a.title}
-                      </h2>
-                      <p className="mt-3 line-clamp-3 leading-relaxed text-ink-soft">
-                        {a.excerpt}
-                      </p>
-                      <span className="mt-4 inline-block text-sm font-semibold text-brand-700">
-                        קראו עוד ←
-                      </span>
+                      <div className="relative h-48 overflow-hidden bg-gradient-to-br from-brand-400 to-brand-700">
+                        {a.imageUrl && (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img
+                            src={a.imageUrl}
+                            alt={a.imageAlt}
+                            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          />
+                        )}
+                      </div>
+                      <div className="p-7">
+                        <h2 className="text-display text-xl leading-snug text-ink transition-colors group-hover:text-brand-700">
+                          {a.title}
+                        </h2>
+                        <p className="mt-3 line-clamp-3 leading-relaxed text-ink-soft">
+                          {a.excerpt}
+                        </p>
+                        <span className="mt-4 inline-block text-sm font-semibold text-brand-700">
+                          קראו עוד ←
+                        </span>
+                      </div>
                     </Link>
                   </Reveal>
                 ))}

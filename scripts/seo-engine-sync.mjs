@@ -33,6 +33,9 @@ const KEEP = [
   "meta_title", "meta_description", "excerpt", "body_html",
   "faq_json", "schema_json", "internal_links_json", "images_json",
   "word_count", "ready_at",
+  // v1.1: the engine draws a photo ~30s after the article is ready.
+  // image_url is public (no key) and carries a ?v= timestamp — keep it verbatim.
+  "image_url", "image",
 ];
 
 async function main() {
@@ -75,6 +78,26 @@ async function main() {
   }
 
   const articles = [...merged.values()];
+
+  // Backfill photos: the image lands ~30s after an article is ready, and
+  // already-published articles predate the feature. For any article still
+  // missing image_url, fetch it by id (status=ready only lists un-published ones).
+  for (const rec of articles) {
+    if (rec.image_url) continue;
+    try {
+      const r = await fetch(`${BASE}/v1/articles/${rec.id}`, { headers: { "X-API-Key": KEY } });
+      if (r.ok) {
+        const a = await r.json();
+        if (a.image_url) {
+          rec.image_url = a.image_url;
+          rec.image = a.image;
+          console.log(`  + backfilled image for ${rec.slug}`);
+        }
+      }
+    } catch {
+      /* leave without an image; a later run will retry */
+    }
+  }
 
   // Only rewrite when the article set actually changed (ignore the synced_at
   // stamp) so the cron does not rebuild/commit on every no-op run.
