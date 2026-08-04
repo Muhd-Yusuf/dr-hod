@@ -1,13 +1,11 @@
 #!/usr/bin/env bash
-# Recurring SEO-engine sync, meant to run from cron on the bles server.
-# Pulls any newly-ready articles from the engine as DRAFTS (noindex), rebuilds
-# so they are viewable for the practitioner to review, and — if a GITHUB_TOKEN
-# is configured — pushes the updated data back so GitHub stays the source of
-# truth (no drift with manual `git reset --hard` deploys). Publishing to the
-# live index stays a human step (approve → seo-engine-publish.mjs); this job
-# never flips anything live on its own.
+# Recurring SEO-engine publish job, run from cron on the bles server on
+# Sundays and Wednesdays. Each run: pulls newly-ready articles from the engine,
+# approves exactly ONE (the oldest pending) so at most one goes live per day,
+# rebuilds, pushes to GitHub (source of truth, deploy key), and closes the loop
+# with the engine (/published). Never publishes two on the same day.
 #
-# Install (server): crontab -e →  0 6 * * *  /home/yusuf/dr-hod/scripts/seo-engine-cron.sh
+# Install (server): crontab -e →  0 8 * * 0,3  /home/yusuf/dr-hod/scripts/seo-engine-cron.sh
 set -uo pipefail
 
 REPO="$HOME/dr-hod"
@@ -21,25 +19,32 @@ mkdir -p "$REPO/logs"
 LOG="$REPO/logs/seo-engine-$(date +%F).log"
 
 {
-  echo "=== $(date -u +%FT%TZ) engine sync ==="
+  echo "=== $(date -u +%FT%TZ) engine publish run ==="
   node scripts/seo-engine-sync.mjs || { echo "sync failed"; exit 1; }
 
+  # Publish at most one article this run (one on Sunday, one on Wednesday).
+  node scripts/seo-engine-approve.mjs 1
+
   if git diff --quiet -- data/engine-articles.json; then
-    echo "no change — nothing to rebuild"
+    echo "nothing new to publish"
     exit 0
   fi
 
-  echo "drafts changed → regenerate + build + restart"
+  echo "change detected → regenerate + build + restart"
   node scripts/gen-posts.mjs >/dev/null
   npm run build >/dev/null 2>&1 || { echo "build failed"; exit 1; }
   pm2 restart dr-hod >/dev/null
+
+  # The page is now live on the origin — tell the engine it is published so the
+  # keyword is marked covered and future articles can link to it and won't dup.
+  node scripts/seo-engine-publish.mjs || echo "WARN: /published callback failed"
 
   # Push over SSH using the server's deploy key (configured via the repo's
   # origin = git@github.com:... and core.sshCommand). Keeps GitHub the source
   # of truth so manual `git reset --hard` deploys never discard synced drafts.
   git add data/engine-articles.json src/lib/engine-posts.ts
   git -c user.name="seo-engine-bot" -c user.email="bot@dr-hod.info" \
-      commit -q -m "chore(seo): sync engine drafts $(date -u +%F)" || true
+      commit -q -m "chore(seo): publish engine article $(date -u +%F)" || true
   if git push origin HEAD:main -q 2>/dev/null; then
     echo "pushed to GitHub"
   else

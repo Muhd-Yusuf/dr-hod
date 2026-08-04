@@ -16,8 +16,11 @@ import { engineArticles } from "@/lib/engine-posts";
 
 export const dynamicParams = false;
 
+// Only APPROVED (published) articles are built. An un-approved article has no
+// page at all (404) — a draft can never be viewed, shared, or indexed. There
+// is no "draft banner" state on the public site by design.
 export function generateStaticParams() {
-  return engineArticles.map((a) => ({ slug: a.slug }));
+  return engineArticles.filter((a) => a.approved).map((a) => ({ slug: a.slug }));
 }
 
 export async function generateMetadata({
@@ -34,8 +37,6 @@ export async function generateMetadata({
     title: { absolute: a.metaTitle },
     description: a.metaDescription,
     alternates: { canonical: `/blog/${a.slug}/` },
-    // Draft = keep it out of the index until approved.
-    robots: a.approved ? undefined : { index: false, follow: false },
     openGraph: {
       title: a.metaTitle,
       description: a.metaDescription,
@@ -62,12 +63,6 @@ export default async function BlogArticle({
       />
       <Header />
       <main className="flex-1">
-        {!a.approved && (
-          <div className="border-b border-amber-300 bg-amber-50 px-6 py-3 text-center text-sm font-medium text-amber-900">
-            טיוטה לבדיקת הרופא · טרם פורסמה ואינה מסומנת לאינדוקס במנועי החיפוש
-          </div>
-        )}
-
         {/* Branded header (no stock photo — real clinic images added on approval) */}
         <section className="relative overflow-hidden bg-gradient-to-br from-brand-600 to-brand-900 py-20 md:py-28">
           <div className="absolute inset-0 opacity-20 [background:radial-gradient(60rem_30rem_at_80%_-10%,white,transparent)]" />
