@@ -63,23 +63,38 @@ export default async function BlogArticle({
       />
       <Header />
       <main className="flex-1">
-        {/* Branded header (no stock photo — real clinic images added on approval) */}
-        <section className="relative overflow-hidden bg-gradient-to-br from-brand-600 to-brand-900 py-20 md:py-28">
-          <div className="absolute inset-0 opacity-20 [background:radial-gradient(60rem_30rem_at_80%_-10%,white,transparent)]" />
-          <div className="relative mx-auto max-w-4xl px-6">
-            <Reveal direction="up">
-              <span className="glass mb-4 inline-block rounded-full px-4 py-1.5 text-xs font-bold text-white">
-                מאמר · {clinic.name}
-              </span>
-              <h1 className="text-display text-3xl leading-tight text-white drop-shadow-sm md:text-5xl">
-                {a.title}
-              </h1>
-              {a.excerpt && (
-                <p className="mt-5 max-w-2xl text-lg leading-relaxed text-white/85">
-                  {a.excerpt}
-                </p>
-              )}
-            </Reveal>
+        {/* Hero: the engine-drawn photo, with the title over it. The ?v= on the
+            URL is kept verbatim (immutable cache — a redraw changes the stamp). */}
+        <section className="relative h-[26rem] overflow-hidden md:h-[34rem]">
+          {a.imageUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={a.imageUrl}
+              alt={a.imageAlt}
+              width={1920}
+              height={1080}
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          ) : (
+            <div className="absolute inset-0 bg-gradient-to-br from-brand-600 to-brand-900" />
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/40 to-transparent" />
+          <div className="absolute inset-0 flex items-end">
+            <div className="mx-auto w-full max-w-4xl px-6 pb-12 md:pb-16">
+              <Reveal direction="up">
+                <span className="glass mb-4 inline-block rounded-full px-4 py-1.5 text-xs font-bold text-white">
+                  מאמר · {clinic.name}
+                </span>
+                <h1 className="text-display text-3xl leading-tight text-white drop-shadow-sm md:text-5xl">
+                  {a.title}
+                </h1>
+                {a.excerpt && (
+                  <p className="mt-4 max-w-2xl text-lg leading-relaxed text-white/85 drop-shadow">
+                    {a.excerpt}
+                  </p>
+                )}
+              </Reveal>
+            </div>
           </div>
         </section>
 
