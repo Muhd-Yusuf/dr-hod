@@ -22,6 +22,9 @@ LOG="$REPO/logs/seo-engine-$(date +%F).log"
   echo "=== $(date -u +%FT%TZ) engine publish run ==="
   node scripts/seo-engine-sync.mjs || { echo "sync failed"; exit 1; }
 
+  # Compress + self-host any new engine photos (originals are 2-3 MB; too heavy).
+  node scripts/optimize-images.mjs || echo "WARN: image optimize failed"
+
   # Publish at most one article this run (one on Sunday, one on Wednesday).
   node scripts/seo-engine-approve.mjs 1
 
@@ -42,7 +45,7 @@ LOG="$REPO/logs/seo-engine-$(date +%F).log"
   # Push over SSH using the server's deploy key (configured via the repo's
   # origin = git@github.com:... and core.sshCommand). Keeps GitHub the source
   # of truth so manual `git reset --hard` deploys never discard synced drafts.
-  git add data/engine-articles.json src/lib/engine-posts.ts
+  git add data/engine-articles.json src/lib/engine-posts.ts public/images/articles
   git -c user.name="seo-engine-bot" -c user.email="bot@dr-hod.info" \
       commit -q -m "chore(seo): publish engine article $(date -u +%F)" || true
   if git push origin HEAD:main -q 2>/dev/null; then

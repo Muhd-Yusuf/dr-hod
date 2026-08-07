@@ -34,7 +34,8 @@
         "aspect_ratio": "16:9",
         "generated_at": 1785834790.5558014,
         "error": ""
-      }
+      },
+      "image_local": "/images/articles/art_5d6477b847286a8c-1785834790.webp"
     },
     {
       "id": "art_f2177d63ee7c4a80",
@@ -68,7 +69,8 @@
         "aspect_ratio": "16:9",
         "generated_at": 1785834833.205353,
         "error": ""
-      }
+      },
+      "image_local": "/images/articles/art_f2177d63ee7c4a80-1785834833.webp"
     },
     {
       "id": "art_8febc823ac1192d8",
@@ -102,7 +104,8 @@
       },
       "approved": true,
       "published_at": "2026-08-05T06:00:15.511Z",
-      "pulled_at": "2026-08-04T15:15:02.481Z"
+      "pulled_at": "2026-08-04T15:15:02.481Z",
+      "image_local": "/images/articles/art_8febc823ac1192d8-1785835622.webp"
     }
   ]
 }
