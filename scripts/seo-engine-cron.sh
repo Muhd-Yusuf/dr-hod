@@ -30,28 +30,31 @@ LOG="$REPO/logs/seo-engine-$(date +%F).log"
 
   if git diff --quiet -- data/engine-articles.json; then
     echo "nothing new to publish"
-    exit 0
-  fi
-
-  echo "change detected → regenerate + build + restart"
-  node scripts/gen-posts.mjs >/dev/null
-  npm run build >/dev/null 2>&1 || { echo "build failed"; exit 1; }
-  pm2 restart dr-hod >/dev/null
-
-  # The page is now live on the origin — tell the engine it is published so the
-  # keyword is marked covered and future articles can link to it and won't dup.
-  node scripts/seo-engine-publish.mjs || echo "WARN: /published callback failed"
-
-  # Push over SSH using the server's deploy key (configured via the repo's
-  # origin = git@github.com:... and core.sshCommand). Keeps GitHub the source
-  # of truth so manual `git reset --hard` deploys never discard synced drafts.
-  git add data/engine-articles.json src/lib/engine-posts.ts public/images/articles
-  git -c user.name="seo-engine-bot" -c user.email="bot@dr-hod.info" \
-      commit -q -m "chore(seo): publish engine article $(date -u +%F)" || true
-  if git push origin HEAD:main -q 2>/dev/null; then
-    echo "pushed to GitHub"
   else
-    echo "WARN: push failed (deploy key not set up?) — server is ahead of GitHub until resolved"
+    echo "change detected → regenerate + build + restart"
+    node scripts/gen-posts.mjs >/dev/null
+    npm run build >/dev/null 2>&1 || { echo "build failed"; exit 1; }
+    pm2 restart dr-hod >/dev/null
+
+    # The page is now live on the origin — tell the engine it is published so the
+    # keyword is marked covered and future articles can link to it and won't dup.
+    node scripts/seo-engine-publish.mjs || echo "WARN: /published callback failed"
+
+    # Push over SSH using the server's deploy key (configured via the repo's
+    # origin = git@github.com:... and core.sshCommand). Keeps GitHub the source
+    # of truth so manual `git reset --hard` deploys never discard synced drafts.
+    git add data/engine-articles.json src/lib/engine-posts.ts public/images/articles
+    git -c user.name="seo-engine-bot" -c user.email="bot@dr-hod.info" \
+        commit -q -m "chore(seo): publish engine article $(date -u +%F)" || true
+    if git push origin HEAD:main -q 2>/dev/null; then
+      echo "pushed to GitHub"
+    else
+      echo "WARN: push failed (deploy key not set up?) — server is ahead of GitHub until resolved"
+    fi
+    echo "done"
   fi
-  echo "done"
+
+  # Always run the supply-gap monitor — it must fire on EMPTY runs too, so a
+  # week where the engine had nothing ready (e.g. Sun Aug 9) is flagged, not silent.
+  node scripts/publish-monitor.mjs || echo "WARN: monitor failed"
 } >> "$LOG" 2>&1
