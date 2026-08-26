@@ -1,6 +1,6 @@
 {
   "client_id": "dr-hod",
-  "synced_at": "2026-08-23T06:00:02.560Z",
+  "synced_at": "2026-08-26T06:00:02.637Z",
   "articles": [
     {
       "id": "art_5d6477b847286a8c",
@@ -231,8 +231,8 @@
         "generated_at": 1787460923.7867842,
         "error": ""
       },
-      "approved": false,
-      "published_at": null,
+      "approved": true,
+      "published_at": "2026-08-26T06:00:16.530Z",
       "pulled_at": "2026-08-23T06:00:02.560Z",
       "image_local": "/images/articles/art_eb33e75b2d28fd77-1787460923.webp"
     },
